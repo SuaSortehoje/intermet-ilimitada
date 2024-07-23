@@ -8,7 +8,7 @@
     <meta name="url" content="https://raw.githubusercontent.com/SuaSortehoje/placarBet/main/FB_IMG_16636065920329431.jpg"> 
     <title>INTERNET ILIMITADA TESTE GRATIS</title>
 </head>
-<body style="background-image: linear-gradient(90deg, black, gold, black);" onload="verificarCalcular()" style="text-align: center; background: green;">
+<body style="background-image: linear-gradient(90deg, black, gold, black);" style="text-align: center; background: green;">
 
     <div style="background-image: linear-gradient(90deg, gold, green, yellow); text-align: center; margin-top:150px;">
         <img class="ima" src="https://raw.githubusercontent.com/SuaSortehoje/placarBet/main/FB_IMG_16636065920329431.jpg" alt="Imagem" style="width: 100%; height: 150px;border-radius:10px;">
@@ -34,9 +34,12 @@ function sendWhatsApp() {
         alert("Por favor, preencha o nome antes de prosseguir.");
         return;
     }
-    let message = `Nome: ${nome}`;
+    let aviso = "Renovar meu teste por 30 dias";
+    
+    let pix = "*RENOVAÇÃO IPTV e INTERNET ILIMITADA*\n\n🏦 Instituição: Nubank\n👤 Nome:  Carlos dos Santos Reis\n\nCHAVE PIX (N° de Telefone)⤵️\n\n└──►71992290058\n\n🤝 MATENHA PRESSIONADO O NÚMERO ACIMA E COPIE DE MANEIRA AUTOMÁTICA.";
+
+    let message = `Nome: ${nome}\n\n${aviso}\n\n${pix}`;
     let whatsappLink = `https://wa.me/5571992290058?text=${encodeURIComponent(message)}`;
-    // Abre o link do WhatsApp em uma nova aba
     window.open(whatsappLink, '_blank');
 }
 </script>

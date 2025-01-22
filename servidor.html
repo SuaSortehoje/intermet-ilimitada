@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ATUALIZAR O SERVIDOR</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #000000;
+      color: #8098ff;
+    }
+
+    .progress-container {
+      width: 80%;
+      height: 30px;
+      background-color: #e0e0e0;
+      border-radius: 15px;
+      overflow: hidden;
+      margin-bottom: 30px;
+      position: relative;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0;
+      background-color: #4caf50;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: width 0.1s ease-in-out;
+    }
+
+    #progress-text {
+      font-size: 14px;
+      color: white;
+      font-weight: bold;
+      position: absolute;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #4c4c4c;
+    }
+
+    .loginInput {
+      width: 60%;
+      margin: 5px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    #success-message {
+      font-size: 18px;
+      color: #4caf50;
+      font-weight: bold;
+      margin-top: 20px;
+      display: none;
+    }
+
+    #error-message {
+      font-size: 16px;
+      color: red;
+      margin-top: 10px;
+      display: none;
+    }
+    .imgPrincial{ width:90%; height:80%; text-align:center; } .loginInput{ width:60%; margin:5px; }
+  </style>
+</head>
+<body>
+  <p id="ip-address">Carregando...</p>
+  
+  <input id="name-input" class="loginInput" type="text" placeholder="Digite seu login">
+  
+   <img class="imgPrincial"src="newtechbanner.jpg">
+  
+  <div class="progress-container">
+    <div class="progress-bar" id="progress-bar">
+      <span id="progress-text">0%</span>
+    </div>
+  </div>
+  <button id="start-button">RESET O SERVIDOR</button>
+  <p id="success-message">Servidor atualizado com sucesso!</p>
+  <p id="error-message">Login não autorizado!</p>
+
+  <script>
+    const progressBar = document.getElementById('progress-bar');
+    const progressText = document.getElementById('progress-text');
+    const successMessage = document.getElementById('success-message');
+    const errorMessage = document.getElementById('error-message');
+    const startButton = document.getElementById('start-button');
+    const nameInput = document.getElementById('name-input');
+
+    // Array de nomes autorizados
+    const authorizedUsers = [
+      { name: 'João', number: 1 },
+      { name: 'Maria', number: 2 },
+      { name: 'Ana', number: 3 },
+      { name: 'Carlos', number: 4 },
+    ];
+
+    startButton.addEventListener('click', () => {
+      const userName = nameInput.value.trim();
+      const user = authorizedUsers.find(u => u.name.toLowerCase() === userName.toLowerCase());
+
+      if (!user) {
+        errorMessage.style.display = 'block'; // Mostra mensagem de erro
+        successMessage.style.display = 'none'; // Esconde mensagem de sucesso
+        return;
+      }
+
+      errorMessage.style.display = 'none'; // Esconde mensagem de erro
+      let progress = 0;
+
+      const interval = setInterval(() => {
+        if (progress >= 100) {
+          clearInterval(interval);
+          successMessage.style.display = 'block'; // Mostra mensagem de sucesso
+          localStorage.setItem('progress', 100); // Salva o progresso como 100%
+        } else {
+          progress++;
+          progressBar.style.width = progress + '%';
+          progressText.textContent = progress + '%';
+          localStorage.setItem('progress', progress); // Salva o progresso atual
+        }
+      }, 10000); // Ajuste o tempo (em ms) para controlar a velocidade do progresso
+    });
+
+    // Obtém o IP do usuário
+    const ipDisplay = document.getElementById('ip-address');
+    fetch('https://api.ipify.org?format=json')
+      .then(response => response.json())
+      .then(data => {
+        ipDisplay.textContent = `Seu IP é: ${data.ip}`;
+      })
+      .catch(error => {
+        ipDisplay.textContent = 'Não foi possível obter o endereço IP.';
+        console.error('Erro ao obter o IP:', error);
+      });
+  </script>
+</body>
+</html>

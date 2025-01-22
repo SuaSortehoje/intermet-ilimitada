@@ -98,7 +98,7 @@
       <span id="progress-text">0%</span>
     </div>
   </div>
-  <button id="start-button">RESENT O SERVIDOR</button>
+  <button id="start-button">RESET O SERVIDOR</button>
   <p id="success-message">Servidor atualizado com sucesso!</p>
   <p id="error-message">Login não autorizado!</p>
 
@@ -166,7 +166,7 @@
           progressText.textContent = progress + '%';
           localStorage.setItem('progress', progress); // Salva o progresso atual
         }
-      }, 5000); // Ajuste o tempo (em ms) para controlar a velocidade do progresso
+      }, 2000); // Ajuste o tempo (em ms) para controlar a velocidade do progresso
     });
 
     // Obtém o IP do usuário
